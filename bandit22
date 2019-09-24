@@ -33,6 +33,11 @@ $cat /tmp/$mytarget 을 하면 permission denied 가 뜨게 된다.
 
 $echo I am user $myname | md5sum | cut -d ' ' -f 1
 
-를 치면 
-7db97df393f40ad1691b6e1fb03d53eb
-라고 답이 나오게 된다!
+여기서 user 는 bandit23 이므로
+$ echo I am user bandit23 | md5sum | cut -d ' ' -f 1
+라고 치면 8ca319486bfbbc3663ea0fbe81326349 가 나오게 되고, 이는 아까 permission denied 당한 폴더의 비밀번호 이므로
+
+$ cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+라고 치면 답이 나오게 된다. 
+
+jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
