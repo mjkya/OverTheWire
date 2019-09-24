@@ -19,7 +19,7 @@ bandit21@bandit:~$ cat /etc/cron.d/cronjob_bandit22
 * * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
 
 위와 같이 뜨게 된다. 
-해당 메세지는 쉘을 실행하면 스크립트 자체를 버리라는 것이 아닌, 모니터에 프린트 될 내용들이랑 에러 메세지들을 버리라는 뜻이다. 
+해당 메세지는 리부트를 할 때 @reboot 뒤에 있는 내용을 실행하고, 에러나 아웃풋이 있으면 dev/null에 프린트 될 내용들이랑 에러 메세지들을 버리라는 뜻이다. 
 
 그 이후에
 $cat /usr/bin/cronjob_bandit22.sh 를 타이핑 하면
