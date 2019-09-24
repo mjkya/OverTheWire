@@ -1,0 +1,36 @@
+/etc/cron.d/ 를 탐색하라고 주어졌기 때문에 
+$ ls -al /etc/cron.d/
+이렇게 하여 해당 디렉토리로 들어간다. 
+
+bandit21@bandit:~$ ls -al /etc/cron.d/
+total 24
+drwxr-xr-x  2 root root 4096 Oct 16  2018 .
+drwxr-xr-x 88 root root 4096 Aug  3 09:58 ..
+-rw-r--r--  1 root root  120 Oct 16  2018 cronjob_bandit22
+-rw-r--r--  1 root root  122 Oct 16  2018 cronjob_bandit23
+-rw-r--r--  1 root root  120 Oct 16  2018 cronjob_bandit24
+-rw-r--r--  1 root root  102 Oct  7  2017 .placeholder
+
+그럼 이렇게 뜨게 되는데, 
+$cat /etc/cron.d/cronjob_bandit22 를 타입하면
+
+bandit21@bandit:~$ cat /etc/cron.d/cronjob_bandit22
+@reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+
+위와 같이 뜨게 된다. 
+해당 메세지는 쉘을 실행하면 스크립트 자체를 버리라는 것이 아닌, 모니터에 프린트 될 내용들이랑 에러 메세지들을 버리라는 뜻이다. 
+
+그 이후에
+$cat /usr/bin/cronjob_bandit22.sh 를 타이핑 하면
+
+bandit21@bandit:~$ cat /usr/bin/cronjob_bandit22.sh
+#!/bin/bash
+chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+
+해당 메세지가 나오고, 
+$cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+을 하게 되면 22로 갈 수 있는 답이 나온다.
+
+Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
