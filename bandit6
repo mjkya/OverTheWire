@@ -1,0 +1,16 @@
+주어진 조건이
+human-readable
+1033 bytes in size
+not executable
+이기 때문에,
+
+find . -type f -readable ! -executable -size 1033c
+을 터미널에 타이핑한다.
+
+./maybehere07/.file2이 뜨기 때문에
+
+cat ./maybehere07/.file2
+를 하면
+
+DXjZPULLxYr17uwoI01bNLQbtFemEgo7
+비밀번호가 뜬다.
